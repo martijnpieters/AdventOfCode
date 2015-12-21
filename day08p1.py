@@ -1,7 +1,7 @@
 import re
 from ast import literal_eval
 
-inputString = [line.rstrip('\n') for line in open('day8.txt')]
+inputString = [line.rstrip('\n') for line in open('day08.txt')]
 r = []
 c = []
 

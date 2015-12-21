@@ -6,7 +6,7 @@ import datetime
 ctx = cl.create_some_context()
 queue = cl.CommandQueue(ctx)
 prg = cl.Program(ctx, """
-__kernel void look(__global const int* numbers, __global int* result) {
+__kernel void look(__global const uchar* numbers, __global uchar* result) {
     unsigned int gid = get_global_id(0);
     unsigned int i = 0;
     
@@ -14,7 +14,7 @@ __kernel void look(__global const int* numbers, __global int* result) {
     
     result[gid] = i;
 }
-__kernel void say(__global const int* numbers, __global const int* amount, __global int* result) {
+__kernel void say(__global const uchar* numbers, __global const uchar* amount, __global uchar* result) {
     unsigned int gid = get_global_id(0);
     
     if (gid == 0 || (amount[gid] >= amount[gid - 1])) {
@@ -26,7 +26,7 @@ __kernel void say(__global const int* numbers, __global const int* amount, __glo
 
 # Initialize client side (CPU) array
 numberList = [3,1,1,3,3,2,2,1,1,3]
-numbers = np.array(numberList).astype(np.int32)
+numbers = np.array(numberList).astype(np.uint8)
 a = datetime.datetime.now()
 
 for i in range(50):
@@ -43,7 +43,7 @@ for i in range(50):
     prg.say(queue, numbers.shape, None, numbers_buf, amount_buf, results_buf)
 
     # Read results from buffer
-    results = np.empty(shape=(numbers.size * 2,)).astype(np.int32)
+    results = np.empty(shape=(numbers.size * 2,)).astype(np.uint8)
     cl.enqueue_read_buffer(queue, results_buf, results).wait()
     
     # Filter zeros from list

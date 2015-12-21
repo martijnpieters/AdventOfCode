@@ -1,6 +1,6 @@
 import re
 
-inputString = [line.rstrip('\n') for line in open('day8.txt')]
+inputString = [line.rstrip('\n') for line in open('day08.txt')]
 r = []
 e = []
 

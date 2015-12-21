@@ -1,11 +1,11 @@
 import re, itertools, sys
 from ast import literal_eval
 
-lines = [line.rstrip('\n') for line in open('day9.txt')]
+lines = [line.rstrip('\n') for line in open('day09.txt')]
 regex = re.compile(r"(\w+) to (\w+) = ([0-9]+)")
 cities = []
 dist = {}
-minRoute = sys.maxint
+maxRoute = 0
 
 for s in lines:
     m = regex.match(s)
@@ -26,7 +26,7 @@ for subset in itertools.permutations(cities, len(cities)):
         else:
             route += dist[(b,a)]
     
-    if route < minRoute:
-        minRoute = route
+    if route > maxRoute:
+        maxRoute = route
 
-print(minRoute)
+print(maxRoute)
