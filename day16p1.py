@@ -1,5 +1,4 @@
 lines = [line.rstrip('\n') for line in open('day16.txt')]
-sues = {}
 tape = {
     'children': 3,
     'cats': 7,
@@ -15,26 +14,16 @@ tape = {
 
 for line in lines:
     _, sue, property1, value1, property2, value2, property3, value3 = line.split(' ')
-    sue = int(sue[:-1])
+
     property1 = property1[:-1]
     property2 = property2[:-1]
     property3 = property3[:-1]
-    sues[sue] = {
-        'children': None,
-        'cats': None,
-        'samoyeds': None,
-        'pomeranians': None,
-        'akitas': None,
-        'vizslas': None,
-        'goldfish': None,
-        'trees': None,
-        'cars': None,
-        'perfumes': None
+    aunt = {
+        property1: int(value1[:-1]),
+        property2: int(value2[:-1]),
+        property3: int(value3)
     }
-    sues[sue][property1] = int(value1[:-1])
-    sues[sue][property2] = int(value2[:-1])
-    sues[sue][property3] = int(value3)
 
-    if tape[property1] == sues[sue][property1] and tape[property2] == sues[sue][property2] and tape[property3] == sues[sue][property3]:
-        print(sue)
+    if tape[property1] == aunt[property1] and tape[property2] == aunt[property2] and tape[property3] == aunt[property3]:
+        print(sue[:-1])
         exit()
